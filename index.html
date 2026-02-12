@@ -3,124 +3,114 @@
 <head>
     <title>Muskan 💖</title>
 
+    <!-- Romantic Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
             margin: 0;
             overflow: hidden;
+            text-align: center;
             height: 100vh;
-            background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+            color: white;
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Dark overlay */
-        body::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            z-index: 0;
-        }
-
-        .card {
-            position: relative;
-            z-index: 1;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 50px;
-            border-radius: 25px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            text-align: center;
-            color: white;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
         }
 
         h1 {
-            font-family: 'Great Vibes', cursive;
+            margin-top: 100px;
             font-size: 60px;
-            margin-bottom: 10px;
+            font-family: 'Great Vibes', cursive;
         }
 
-        h2 {
-            font-size: 28px;
-            margin-bottom: 30px;
+        p {
+            font-size: 18px;
+            opacity: 0.9;
         }
 
         button {
-            padding: 12px 30px;
-            font-size: 18px;
+            padding: 15px 35px;
+            font-size: 20px;
             border: none;
-            border-radius: 40px;
+            border-radius: 50px;
             cursor: pointer;
-            margin: 10px;
             transition: 0.3s;
+            margin: 10px;
         }
 
         #yesBtn {
-            background: #ff4d6d;
+            background-color: #ff0066;
             color: white;
         }
 
-        #yesBtn:hover {
-            transform: scale(1.1);
+        #noBtn {
+            background-color: white;
+            color: #ff0066;
+            position: absolute;
         }
 
-        #noBtn {
-            background: white;
-            color: #ff4d6d;
+        .heart {
             position: absolute;
+            font-size: 24px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh); opacity:1; }
+            to { transform: translateY(-10vh); opacity:0; }
         }
     </style>
 </head>
 <body>
 
+<!-- Music -->
 <audio id="bgMusic" loop>
     <source src="romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card">
-    <h1>Muskan 💖</h1>
-    <h2>Will You Be My Valentine?</h2>
+<h1>Muskan 💖</h1>
+<p>Click anywhere to start the magic ✨</p>
+<h2>Will You Be My Valentine?</h2>
 
-    <button id="yesBtn">Yes 💘</button>
-    <button id="noBtn">No 🙈</button>
-</div>
+<button id="yesBtn">Yes 💘</button>
+<button id="noBtn">No 🙈</button>
 
 <script>
     const music = document.getElementById("bgMusic");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
-    let yesSize = 18;
-    let noSize = 18;
+    let yesSize = 20;
+    let noSize = 20;
 
-    // Start music on first click
+    // Start music ONLY on first click anywhere
     document.body.addEventListener("click", function startMusic() {
-        music.volume = 0.6;
+        music.volume = 0.7;
         music.play().catch(() => {});
         document.body.removeEventListener("click", startMusic);
     });
 
     function moveButton() {
-        const x = Math.random() * (window.innerWidth - 120);
-        const y = Math.random() * (window.innerHeight - 80);
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
+        // Shrink No
         noSize -= 2;
-        if (noSize > 8) noBtn.style.fontSize = noSize + "px";
+        if (noSize > 8) {
+            noBtn.style.fontSize = noSize + "px";
+        }
 
+        // Grow Yes
         yesSize += 3;
         yesBtn.style.fontSize = yesSize + "px";
     }
@@ -129,13 +119,40 @@
     noBtn.addEventListener("click", moveButton);
 
     yesBtn.addEventListener("click", () => {
-        document.querySelector(".card").innerHTML = `
-            <h1>She Said YES 💕</h1>
-            <h2>Best moment ever 😌</h2>
+        document.body.innerHTML = `
+            <h1 style="margin-top:150px;font-family:'Great Vibes',cursive;">
+                Muskan said YES 💕
+            </h1>
+            <p style="font-size:24px;">Best decision ever 😌</p>
         `;
+        launchConfetti();
     });
+
+    function launchConfetti() {
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement("div");
+            confetti.innerHTML = "💖";
+            confetti.style.position = "absolute";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = Math.random() * 100 + "vh";
+            confetti.style.fontSize = "30px";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+
+    // Floating hearts
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 400);
 </script>
 
 </body>
 </html>
-
