@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Muskan 💖</title>
+
+    <!-- Romantic Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        h1 {
+            margin-top: 100px;
+            font-size: 60px;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        #yesBtn {
+            background-color: #ff0066;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: white;
+            color: #ff0066;
+            position: absolute;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh); opacity:1; }
+            to { transform: translateY(-10vh); opacity:0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+    <source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<h1>Muskan 💖</h1>
+<p>Click anywhere to start the magic ✨</p>
+<h2>Will You Be My Valentine?</h2>
+
+<button id="yesBtn">Yes 💘</button>
+<button id="noBtn">No 🙈</button>
+
+<script>
+    const music = document.getElementById("bgMusic");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    let yesSize = 20;
+    let noSize = 20;
+
+    // Start music ONLY on first click anywhere
+    document.body.addEventListener("click", function startMusic() {
+        music.volume = 0.7;
+        music.play().catch(() => {});
+        document.body.removeEventListener("click", startMusic);
+    });
+
+    function moveButton() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        // Shrink No
+        noSize -= 2;
+        if (noSize > 8) {
+            noBtn.style.fontSize = noSize + "px";
+        }
+
+        // Grow Yes
+        yesSize += 3;
+        yesBtn.style.fontSize = yesSize + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("click", moveButton);
+
+    yesBtn.addEventListener("click", () => {
+        document.body.innerHTML = `
+            <h1 style="margin-top:150px;font-family:'Great Vibes',cursive;">
+                Muskan said YES 💕
+            </h1>
+            <p style="font-size:24px;">Best decision ever 😌</p>
+        `;
+        launchConfetti();
+    });
+
+    function launchConfetti() {
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement("div");
+            confetti.innerHTML = "💖";
+            confetti.style.position = "absolute";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = Math.random() * 100 + "vh";
+            confetti.style.fontSize = "30px";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+
+    // Floating hearts
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 400);
+</script>
+
+</body>
+</html>
+
 
