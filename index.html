@@ -3,20 +3,28 @@
 <head>
     <title>Muskan 💖</title>
 
-    <!-- Cute Romantic Fonts -->
+    <!-- Mobile Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Cute Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            text-align: center;
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
             background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #ffdde1);
             background-size: 400% 400%;
             animation: gradient 12s ease infinite;
-            color: #fff;
             font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
         }
 
         @keyframes gradient {
@@ -26,28 +34,36 @@
         }
 
         h1 {
-            margin-top: 100px;
-            font-size: 65px;
             font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            margin-bottom: 10px;
         }
 
         h2 {
-            font-size: 28px;
+            font-size: 22px;
+            margin-bottom: 25px;
         }
 
         p {
-            font-size: 18px;
+            font-size: 16px;
             opacity: 0.9;
         }
 
+        .buttons {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
         button {
-            padding: 15px 35px;
-            font-size: 20px;
+            padding: 14px 30px;
+            font-size: 18px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
             margin: 10px;
+            width: 120px;
         }
 
         #yesBtn {
@@ -63,13 +79,20 @@
 
         .heart {
             position: absolute;
-            font-size: 24px;
+            font-size: 22px;
             animation: float 5s linear infinite;
         }
 
         @keyframes float {
             from { transform: translateY(100vh); opacity:1; }
             to { transform: translateY(-10vh); opacity:0; }
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 480px) {
+            h1 { font-size: 38px; }
+            h2 { font-size: 18px; }
+            button { font-size: 16px; padding: 12px 25px; }
         }
     </style>
 </head>
@@ -80,20 +103,23 @@
 </audio>
 
 <h1>Muskan 💖</h1>
-<p>Click anywhere to start the magic ✨</p>
+<p>Tap anywhere to start the magic ✨</p>
 <h2>Will You Be My Valentine?</h2>
 
-<button id="yesBtn">Yes 💘</button>
-<button id="noBtn">No 🙈</button>
+<div class="buttons">
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 🙈</button>
+</div>
 
 <script>
     const music = document.getElementById("bgMusic");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
-    let yesSize = 20;
-    let noSize = 20;
+    let yesSize = 18;
+    let noSize = 18;
 
+    // Start music on first tap
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -101,8 +127,12 @@
     });
 
     function moveButton() {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
+        const maxX = window.innerWidth - 120;
+        const maxY = window.innerHeight - 60;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
@@ -111,21 +141,22 @@
             noBtn.style.fontSize = noSize + "px";
         }
 
-        yesSize += 3;
+        yesSize += 2;
         yesBtn.style.fontSize = yesSize + "px";
     }
 
+    noBtn.addEventListener("touchstart", moveButton);
     noBtn.addEventListener("mouseover", moveButton);
     noBtn.addEventListener("click", moveButton);
 
     yesBtn.addEventListener("click", () => {
         document.body.innerHTML = `
-            <div style="margin-top:180px;">
-                <h1 style="font-family:'Pacifico',cursive;font-size:60px;">
-                    Please Follow 🥺🙏
+            <div style="text-align:center;">
+                <h1 style="font-family:'Pacifico',cursive;font-size:45px;">
+                    Please Accept 🥺🙏
                 </h1>
-                <p style="font-size:22px;">
-                    You have no idea how special this is to me 💕
+                <p style="font-size:20px;">
+                    This would mean the world to me 💕
                 </p>
             </div>
         `;
@@ -135,15 +166,15 @@
         }, 2500);
     });
 
+    // Floating hearts
     setInterval(() => {
         const heart = document.createElement("div");
         heart.classList.add("heart");
         heart.innerHTML = "💖";
         heart.style.left = Math.random() * 100 + "vw";
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 5000);
-    }, 400);
+    }, 500);
 </script>
 
 </body>
