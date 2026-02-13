@@ -47,28 +47,32 @@
         }
 
         button {
-            padding: 12px 28px;
-            font-size: 16px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            position: fixed;
+    width: 120px;
+    height: 45px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    position: fixed;
+    font-size: 16px;
         }
 
         #yesBtn {
-            background-color: #ff4d88;
-            color: white;
-            bottom: 80px;
-            left: 25%;
+    background-color: #ff4d88;
+    color: white;
+    left: 25%;
+    top: 75%;
+    transform: translate(-50%, -50%);
         }
 
         #noBtn {
-            background-color: white;
-            color: #ff4d88;
-            bottom: 80px;
-            left: 60%;
+    background-color: white;
+    color: #ff4d88;
+    left: 70%;
+    top: 75%;
+    transform: translate(-50%, -50%);
         }
+
 
         .heart {
             position: fixed;
@@ -106,7 +110,6 @@
 
     let yesScale = 1;
     let noScale = 1;
-    let noOpacity = 1;
 
     // Start music
     document.body.addEventListener("click", function startMusic() {
@@ -117,31 +120,27 @@
 
     function moveButton() {
 
-        const padding = 20;
+        const padding = 60;
 
-        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        const maxX = window.innerWidth - padding;
+        const maxY = window.innerHeight - padding;
 
         const x = Math.random() * maxX;
         const y = Math.random() * maxY;
 
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
+        noBtn.style.transform = `translate(-50%, -50%) scale(${noScale})`;
 
-        // Instead of shrinking height (buggy),
-        // reduce scale safely and fade out
-
-        if (noScale > 0.6) {
-            noScale -= 0.05;
-            noOpacity -= 0.08;
-            noBtn.style.transform = `scale(${noScale}) rotate(${Math.random()*20-10}deg)`;
-            noBtn.style.opacity = noOpacity;
+        // Shrink NO safely
+        if (noScale > 0.5) {
+            noScale -= 0.07;
         }
 
         // Grow YES safely
         if (yesScale < 1.6) {
             yesScale += 0.07;
-            yesBtn.style.transform = `scale(${yesScale})`;
+            yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
         }
     }
 
@@ -149,7 +148,6 @@
     noBtn.addEventListener("mouseover", moveButton);
 
     yesBtn.addEventListener("click", () => {
-
         document.body.innerHTML = `
             <div style="text-align:center;">
                 <h1 style="font-family:'Pacifico',cursive;font-size:38px;">
@@ -170,5 +168,6 @@
 
 </body>
 </html>
+
 
 
