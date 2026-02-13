@@ -104,10 +104,10 @@
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
-    let yesSize = 16;
-    let noSize = 16;
+    let yesScale = 1;
+    let noScale = 1;
 
-    // Start music on first tap
+    // Start music
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -127,16 +127,16 @@
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // Shrink NO (limit)
-        if (noSize > 10) {
-            noSize -= 1;
-            noBtn.style.fontSize = noSize + "px";
+        // Shrink NO smoothly (limit)
+        if (noScale > 0.4) {
+            noScale -= 0.08;
+            noBtn.style.transform = `scale(${noScale})`;
         }
 
-        // Grow YES (limit)
-        if (yesSize < 38) {
-            yesSize += 2;
-            yesBtn.style.fontSize = yesSize + "px";
+        // Grow YES smoothly (limit)
+        if (yesScale < 1.8) {
+            yesScale += 0.08;
+            yesBtn.style.transform = `scale(${yesScale})`;
         }
     }
 
@@ -148,7 +148,7 @@
         document.body.innerHTML = `
             <div style="text-align:center;">
                 <h1 style="font-family:'Pacifico',cursive;font-size:38px;">
-                    Please Accept Request 🥺🙏
+                    Please Accept 🥺🙏
                 </h1>
                 <p style="font-size:18px;">
                     This would mean everything to me 💕
@@ -160,19 +160,9 @@
             window.location.href = "https://www.instagram.com/demm.m01112026/";
         }, 2500);
     });
-
-    // Floating hearts
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "100vh";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
-    }, 600);
 </script>
+
 
 </body>
 </html>
+
