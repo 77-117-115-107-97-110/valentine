@@ -61,29 +61,31 @@
             margin-top: 20px;
         }
 
-        button {
-            padding: 12px 28px;
-            font-size: 16px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
-            position: absolute;
-        }
+       button {
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: absolute;
+    }
 
-        #yesBtn {
-            background-color: #ff4d88;
-            color: white;
-            left: 20px;
-            bottom: 0;
-        }
+    #yesBtn {
+    background-color: #ff4d88;
+    color: white;
+    left: 20px;
+    bottom: 0;
+    font-size: 16px;
+    }
 
-        #noBtn {
-            background-color: white;
-            color: #ff4d88;
-            right: 20px;
-            bottom: 0;
-        }
+    #noBtn {
+    background-color: white;
+    color: #ff4d88;
+    left: 180px;   /* IMPORTANT: remove right property */
+    bottom: 0;
+    font-size: 16px;
+}
 
         .heart {
             position: absolute;
@@ -123,7 +125,6 @@
     let yesSize = 16;
     let noSize = 16;
 
-    // Start music
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -131,23 +132,25 @@
     });
 
     function moveButton() {
-        const areaWidth = buttonArea.clientWidth - noBtn.offsetWidth;
-        const areaHeight = buttonArea.clientHeight - noBtn.offsetHeight;
 
-        const x = Math.random() * areaWidth;
-        const y = Math.random() * areaHeight;
+        // Move NO button inside container
+        const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
+        const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
 
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // 🔻 Shrink No button
+        // Shrink NO
         if (noSize > 8) {
             noSize -= 2;
             noBtn.style.fontSize = noSize + "px";
         }
 
-        // 🔺 Grow Yes button
-        yesSize += 3;
+        // Grow YES
+        yesSize += 4;
         yesBtn.style.fontSize = yesSize + "px";
     }
 
@@ -173,6 +176,8 @@
 </script>
 
 
+
 </body>
 </html>
+
 
