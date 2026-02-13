@@ -7,9 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
     margin:0;
@@ -23,6 +21,7 @@ body{
     font-family:'Poppins',sans-serif;
     text-align:center;
     color:white;
+    transition:opacity 0.6s ease;
 }
 
 h1{
@@ -63,7 +62,7 @@ button{
     transform:translate(-50%,-50%);
 }
 
-/* 🎵 Music Toggle Button */
+/* 🎵 Music Toggle */
 #musicToggle{
     width:45px;
     height:45px;
@@ -78,7 +77,6 @@ button{
     justify-content:center;
     align-items:center;
 }
-
 </style>
 </head>
 
@@ -93,7 +91,6 @@ button{
 
 <button id="yesBtn">Yes 💘</button>
 <button id="noBtn">No 🙈</button>
-
 <button id="musicToggle">🔇</button>
 
 <script>
@@ -105,10 +102,9 @@ const musicToggle = document.getElementById("musicToggle");
 let isPlaying = false;
 let yesScale = 1;
 
-// 🎵 Toggle Music
+/* 🎵 Toggle Music */
 musicToggle.addEventListener("click", function(e){
     e.stopPropagation();
-
     if(!isPlaying){
         music.volume = 0.7;
         music.play().catch(()=>{});
@@ -121,7 +117,7 @@ musicToggle.addEventListener("click", function(e){
     }
 });
 
-// Move NO button
+/* Move NO button safely */
 function moveNo(e){
     e.preventDefault();
     e.stopPropagation();
@@ -135,10 +131,11 @@ function moveNo(e){
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 
-    // ✅ Grow YES safely
+    // Grow YES safely
     if (yesScale < 1.8) {
         yesScale += 0.08;
-        yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
+        yesBtn.style.transform =
+          `translate(-50%, -50%) scale(${yesScale})`;
     }
 }
 
@@ -149,38 +146,39 @@ noBtn.addEventListener("click", function(e){
     e.stopPropagation();
 });
 
-// YES button click
+/* YES button click */
 yesBtn.addEventListener("click", function(e){
     e.stopPropagation();
 
-    document.body.style.transition = "opacity 3s ease";
     document.body.style.opacity = "0";
 
-    document.body.innerHTML = `
-        <h1 style="font-family:'Pacifico',cursive;">
-            Please Accept 🥺🙏
-        </h1>
-        <p>This would mean everything to me 💕</p>
-    `;
-setTimeout(function () {
+    setTimeout(function(){
 
-    // Try opening Instagram app
-   window.location.assign("https://www.instagram.com/demm.m01112026?igsh=MTZkeTc3N3lyYW95bw==");
+        document.body.innerHTML = `
+            <h1 style="font-family:'Pacifico',cursive;">
+                Please Accept 🥺🙏
+            </h1>
+            <p>This would mean everything to me 💕</p>
+            <br><br>
+            <a href="https://instagram.com/_u/demm.m01112026"
+               style="
+                    display:inline-block;
+                    padding:12px 25px;
+                    background:#ff3f7f;
+                    color:white;
+                    border-radius:30px;
+                    text-decoration:none;
+                    font-size:18px;
+               ">
+               Open My Instagram 💖
+            </a>
+        `;
 
+        document.body.style.opacity = "1";
 
-    // Fallback to browser after 1.5 sec
-    setTimeout(function () {
-        window.location.assign("https://www.instagram.com/demm.m01112026?igsh=MTZkeTc3N3lyYW95bw==");
-    }, 1500);
-
-}, 2500);
-
+    }, 600);
 });
 </script>
 
-
 </body>
 </html>
-
-
-
