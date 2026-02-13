@@ -7,72 +7,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    background: linear-gradient(135deg,#ffb6c1,#ffc0cb,#ffd1dc);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    color: white;
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffb6c1,#ffc0cb,#ffd1dc);
+    font-family:'Poppins',sans-serif;
+    text-align:center;
+    color:white;
 }
 
-h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 36px;
-    margin-bottom: 10px;
+h1{
+    font-family:'Pacifico',cursive;
+    font-size:36px;
+    margin-bottom:10px;
 }
 
-h2 {
-    font-size: 18px;
-    margin-bottom: 60px;
+h2{
+    font-size:18px;
+    margin-bottom:60px;
 }
 
-button {
-    width: 140px;
-    height: 50px;
-    border: none;
-    border-radius: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.25s ease;
-    position: absolute;
+button{
+    position:fixed;
+    width:140px;
+    height:50px;
+    border:none;
+    border-radius:40px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.25s ease;
 }
 
-#yesBtn {
-    background: #ff3f7f;
-    color: white;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-80%);
+#yesBtn{
+    background:#ff3f7f;
+    color:white;
+    left:30%;
+    top:75%;
+    transform:translate(-50%,-50%);
 }
 
-#noBtn {
-    background: white;
-    color: #ff3f7f;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(20%);
+#noBtn{
+    background:white;
+    color:#ff3f7f;
+    left:70%;
+    top:75%;
+    transform:translate(-50%,-50%);
 }
 
-.heart {
-    position: absolute;
-    font-size: 18px;
-    animation: float 5s linear infinite;
-}
-
-@keyframes float {
-    from { transform: translateY(100vh); opacity:1; }
-    to { transform: translateY(-10vh); opacity:0; }
-}
 </style>
 </head>
 
@@ -93,46 +83,51 @@ const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-let yesGrow = 1;
+let yesScale = 1;
 
-// Start music
-document.body.addEventListener("click", function startMusic() {
+// Start music once
+document.body.addEventListener("click", function startMusic(){
     music.volume = 0.7;
     music.play().catch(()=>{});
     document.body.removeEventListener("click", startMusic);
 });
 
-function moveNoButton() {
+// Move NO button safely
+function moveNo(e){
+    e.preventDefault();
+    e.stopPropagation();
 
-    const maxX = window.innerWidth - 150;
-    const maxY = window.innerHeight - 120;
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
 
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
-
-    // Grow YES only
-    if (yesGrow < 1.6) {
-        yesGrow += 0.08;
-        yesBtn.style.transform = `scale(${yesGrow})`;
-    }
 }
 
-noBtn.addEventListener("touchstart", moveNoButton);
-noBtn.addEventListener("mouseover", moveNoButton);
+// Prevent ghost click
+noBtn.addEventListener("touchstart", moveNo, { passive:false });
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+});
 
-yesBtn.addEventListener("click", () => {
+// YES button action
+yesBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+
     document.body.innerHTML = `
         <h1 style="font-family:'Pacifico',cursive;">
-        Please Accept 🥺🙏
+            Please Accept 🥺🙏
         </h1>
         <p>This would mean everything to me 💕</p>
     `;
 
-    setTimeout(()=>{
-        window.location.href="https://www.instagram.com/demm.m01112026/";
+    setTimeout(function(){
+        window.location.href = "https://www.instagram.com/demm.m01112026/";
     },2500);
 });
 </script>
