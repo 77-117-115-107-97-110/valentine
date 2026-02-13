@@ -3,8 +3,8 @@
 <head>
     <title>Muskan 💖</title>
 
-    <!-- Romantic Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Cute Romantic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -12,10 +12,10 @@
             overflow: hidden;
             text-align: center;
             height: 100vh;
-            background: linear-gradient(-45deg, #ff4e50, #fc913a, #f9d423, #ff4e50);
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #ffdde1);
             background-size: 400% 400%;
-            animation: gradient 10s ease infinite;
-            color: white;
+            animation: gradient 12s ease infinite;
+            color: #fff;
             font-family: 'Poppins', sans-serif;
         }
 
@@ -27,8 +27,12 @@
 
         h1 {
             margin-top: 100px;
-            font-size: 60px;
-            font-family: 'Great Vibes', cursive;
+            font-size: 65px;
+            font-family: 'Pacifico', cursive;
+        }
+
+        h2 {
+            font-size: 28px;
         }
 
         p {
@@ -47,13 +51,13 @@
         }
 
         #yesBtn {
-            background-color: #ff0066;
+            background-color: #ff4d88;
             color: white;
         }
 
         #noBtn {
             background-color: white;
-            color: #ff0066;
+            color: #ff4d88;
             position: absolute;
         }
 
@@ -71,7 +75,6 @@
 </head>
 <body>
 
-<!-- Music -->
 <audio id="bgMusic" loop>
     <source src="romantic.mp3" type="audio/mpeg">
 </audio>
@@ -91,7 +94,6 @@
     let yesSize = 20;
     let noSize = 20;
 
-    // Start music ONLY on first click anywhere
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -104,13 +106,11 @@
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // Shrink No
         noSize -= 2;
         if (noSize > 8) {
             noBtn.style.fontSize = noSize + "px";
         }
 
-        // Grow Yes
         yesSize += 3;
         yesBtn.style.fontSize = yesSize + "px";
     }
@@ -120,29 +120,21 @@
 
     yesBtn.addEventListener("click", () => {
         document.body.innerHTML = `
-            <h1 style="margin-top:150px;font-family:'Great Vibes',cursive;">
-                Muskan said YES 💕
-            </h1>
-            <p style="font-size:24px;">Best decision ever 😌</p>
+            <div style="margin-top:180px;">
+                <h1 style="font-family:'Pacifico',cursive;font-size:60px;">
+                    Please Follow 🥺🙏
+                </h1>
+                <p style="font-size:22px;">
+                    You have no idea how special this is to me 💕
+                </p>
+            </div>
         `;
-        launchConfetti();
+
+        setTimeout(() => {
+            window.location.href = "https://www.instagram.com/demm.m01112026/";
+        }, 2500);
     });
 
-    function launchConfetti() {
-        for (let i = 0; i < 80; i++) {
-            const confetti = document.createElement("div");
-            confetti.innerHTML = "💖";
-            confetti.style.position = "absolute";
-            confetti.style.left = Math.random() * 100 + "vw";
-            confetti.style.top = Math.random() * 100 + "vh";
-            confetti.style.fontSize = "30px";
-            document.body.appendChild(confetti);
-
-            setTimeout(() => confetti.remove(), 3000);
-        }
-    }
-
-    // Floating hearts
     setInterval(() => {
         const heart = document.createElement("div");
         heart.classList.add("heart");
@@ -156,5 +148,3 @@
 
 </body>
 </html>
-
-
