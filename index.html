@@ -106,6 +106,7 @@
 
     let yesScale = 1;
     let noScale = 1;
+    let noOpacity = 1;
 
     // Start music
     document.body.addEventListener("click", function startMusic() {
@@ -116,7 +117,7 @@
 
     function moveButton() {
 
-        const padding = 10;
+        const padding = 20;
 
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
@@ -127,15 +128,19 @@
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // Shrink NO smoothly (limit)
-        if (noScale > 0.4) {
-            noScale -= 0.08;
-            noBtn.style.transform = `scale(${noScale})`;
+        // Instead of shrinking height (buggy),
+        // reduce scale safely and fade out
+
+        if (noScale > 0.6) {
+            noScale -= 0.05;
+            noOpacity -= 0.08;
+            noBtn.style.transform = `scale(${noScale}) rotate(${Math.random()*20-10}deg)`;
+            noBtn.style.opacity = noOpacity;
         }
 
-        // Grow YES smoothly (limit)
-        if (yesScale < 1.8) {
-            yesScale += 0.08;
+        // Grow YES safely
+        if (yesScale < 1.6) {
+            yesScale += 0.07;
             yesBtn.style.transform = `scale(${yesScale})`;
         }
     }
@@ -165,4 +170,5 @@
 
 </body>
 </html>
+
 
