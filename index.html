@@ -63,6 +63,22 @@ button{
     transform:translate(-50%,-50%);
 }
 
+/* 🎵 Music Toggle Button */
+#musicToggle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    font-size:20px;
+    background:white;
+    color:#ff3f7f;
+    bottom:20px;
+    right:20px;
+    position:fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
 </style>
 </head>
 
@@ -78,18 +94,30 @@ button{
 <button id="yesBtn">Yes 💘</button>
 <button id="noBtn">No 🙈</button>
 
+<button id="musicToggle">🔇</button>
+
 <script>
 const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+const musicToggle = document.getElementById("musicToggle");
 
-let yesScale = 1;
+let isPlaying = false;
 
-// Start music once
-document.body.addEventListener("click", function startMusic(){
-    music.volume = 0.7;
-    music.play().catch(()=>{});
-    document.body.removeEventListener("click", startMusic);
+// 🎵 Toggle Music
+musicToggle.addEventListener("click", function(e){
+    e.stopPropagation();
+
+    if(!isPlaying){
+        music.volume = 0.7;
+        music.play().catch(()=>{});
+        musicToggle.innerHTML = "🔊";
+        isPlaying = true;
+    } else {
+        music.pause();
+        musicToggle.innerHTML = "🔇";
+        isPlaying = false;
+    }
 });
 
 // Move NO button safely
@@ -107,7 +135,6 @@ function moveNo(e){
     noBtn.style.top = y + "px";
 }
 
-// Prevent ghost click
 noBtn.addEventListener("touchstart", moveNo, { passive:false });
 noBtn.addEventListener("mouseover", moveNo);
 noBtn.addEventListener("click", function(e){
