@@ -67,24 +67,22 @@
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
     position: absolute;
-    }
+}
 
-    #yesBtn {
+#yesBtn {
     background-color: #ff4d88;
     color: white;
-    left: 20px;
-    bottom: 0;
-    font-size: 16px;
-    }
+    bottom: 40px;
+    left: 25%;
+}
 
-    #noBtn {
+#noBtn {
     background-color: white;
     color: #ff4d88;
-    left: 180px;   /* IMPORTANT: remove right property */
-    bottom: 0;
-    font-size: 16px;
+    bottom: 40px;
+    left: 60%;
 }
 
         .heart {
@@ -120,11 +118,11 @@
     const music = document.getElementById("bgMusic");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
-    const buttonArea = document.querySelector(".button-area");
 
     let yesSize = 16;
     let noSize = 16;
 
+    // Start music
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -133,9 +131,9 @@
 
     function moveButton() {
 
-        // Move NO button inside container
-        const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
-        const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
+        // Allow movement across full screen
+        const maxX = window.innerWidth - noBtn.offsetWidth;
+        const maxY = window.innerHeight - noBtn.offsetHeight;
 
         const x = Math.random() * maxX;
         const y = Math.random() * maxY;
@@ -143,15 +141,17 @@
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // Shrink NO
-        if (noSize > 8) {
-            noSize -= 2;
+        // Shrink NO slowly (limit)
+        if (noSize > 10) {
+            noSize -= 1;
             noBtn.style.fontSize = noSize + "px";
         }
 
-        // Grow YES
-        yesSize += 4;
-        yesBtn.style.fontSize = yesSize + "px";
+        // Grow YES but limit max size
+        if (yesSize < 40) {
+            yesSize += 2;
+            yesBtn.style.fontSize = yesSize + "px";
+        }
     }
 
     noBtn.addEventListener("touchstart", moveButton);
@@ -177,7 +177,9 @@
 
 
 
+
 </body>
 </html>
+
 
 
