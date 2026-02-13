@@ -19,11 +19,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            flex-direction: column;
             background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #ffdde1);
             background-size: 400% 400%;
             animation: gradient 12s ease infinite;
             font-family: 'Poppins', sans-serif;
             color: white;
+            position: relative;
         }
 
         @keyframes gradient {
@@ -32,61 +35,43 @@
             100% {background-position: 0% 50%;}
         }
 
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 350px;
-            padding: 20px;
-        }
-
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 40px;
+            font-size: 42px;
             margin-bottom: 10px;
         }
 
         h2 {
             font-size: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 40px;
         }
 
-        p {
-            font-size: 14px;
-            opacity: 0.9;
+        button {
+            padding: 12px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            position: fixed;
         }
 
-        .button-area {
-            position: relative;
-            height: 120px;
-            margin-top: 20px;
+        #yesBtn {
+            background-color: #ff4d88;
+            color: white;
+            bottom: 80px;
+            left: 25%;
         }
 
-       button {
-    padding: 12px 28px;
-    font-size: 16px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    position: absolute;
-}
-
-#yesBtn {
-    background-color: #ff4d88;
-    color: white;
-    bottom: 40px;
-    left: 25%;
-}
-
-#noBtn {
-    background-color: white;
-    color: #ff4d88;
-    bottom: 40px;
-    left: 60%;
-}
+        #noBtn {
+            background-color: white;
+            color: #ff4d88;
+            bottom: 80px;
+            left: 60%;
+        }
 
         .heart {
-            position: absolute;
+            position: fixed;
             font-size: 20px;
             animation: float 5s linear infinite;
         }
@@ -94,6 +79,11 @@
         @keyframes float {
             from { transform: translateY(100vh); opacity:1; }
             to { transform: translateY(-10vh); opacity:0; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 34px; }
+            h2 { font-size: 18px; }
         }
     </style>
 </head>
@@ -103,16 +93,11 @@
     <source src="romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-    <h1>Muskan 💖</h1>
-    <p>Tap anywhere to start the magic ✨</p>
-    <h2>Will You Be My Valentine?</h2>
+<h1>Muskan 💖</h1>
+<h2>Will You Be My Valentine?</h2>
 
-    <div class="button-area">
-        <button id="yesBtn">Yes 💘</button>
-        <button id="noBtn">No 🙈</button>
-    </div>
-</div>
+<button id="yesBtn">Yes 💘</button>
+<button id="noBtn">No 🙈</button>
 
 <script>
     const music = document.getElementById("bgMusic");
@@ -122,7 +107,7 @@
     let yesSize = 16;
     let noSize = 16;
 
-    // Start music
+    // Start music on first tap
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
         music.play().catch(() => {});
@@ -131,9 +116,10 @@
 
     function moveButton() {
 
-        // Allow movement across full screen
-        const maxX = window.innerWidth - noBtn.offsetWidth;
-        const maxY = window.innerHeight - noBtn.offsetHeight;
+        const padding = 10;
+
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
         const x = Math.random() * maxX;
         const y = Math.random() * maxY;
@@ -141,14 +127,14 @@
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
 
-        // Shrink NO slowly (limit)
+        // Shrink NO (limit)
         if (noSize > 10) {
             noSize -= 1;
             noBtn.style.fontSize = noSize + "px";
         }
 
-        // Grow YES but limit max size
-        if (yesSize < 40) {
+        // Grow YES (limit)
+        if (yesSize < 38) {
             yesSize += 2;
             yesBtn.style.fontSize = yesSize + "px";
         }
@@ -158,10 +144,11 @@
     noBtn.addEventListener("mouseover", moveButton);
 
     yesBtn.addEventListener("click", () => {
+
         document.body.innerHTML = `
-            <div style="text-align:center; padding:20px;">
+            <div style="text-align:center;">
                 <h1 style="font-family:'Pacifico',cursive;font-size:38px;">
-                    Please Accept 🥺🙏
+                    Please Accept Request 🥺🙏
                 </h1>
                 <p style="font-size:18px;">
                     This would mean everything to me 💕
@@ -173,13 +160,19 @@
             window.location.href = "https://www.instagram.com/demm.m01112026/";
         }, 2500);
     });
+
+    // Floating hearts
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 600);
 </script>
-
-
-
 
 </body>
 </html>
-
-
-
