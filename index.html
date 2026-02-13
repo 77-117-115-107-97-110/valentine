@@ -153,20 +153,33 @@ noBtn.addEventListener("click", function(e){
 yesBtn.addEventListener("click", function(e){
     e.stopPropagation();
 
+    document.body.style.transition = "opacity 0.5s ease";
+    document.body.style.opacity = "0";
+
     document.body.innerHTML = `
         <h1 style="font-family:'Pacifico',cursive;">
             Please Accept 🥺🙏
         </h1>
         <p>This would mean everything to me 💕</p>
     `;
+setTimeout(function () {
 
-    setTimeout(function(){
-        window.location.href = "https://www.instagram.com/demm.m01112026/";
-    },2500);
+    // Try opening Instagram app
+   window.location.assign("instagram://user?username=demm.m01112026");
+
+
+    // Fallback to browser after 1.5 sec
+    setTimeout(function () {
+        window.location.assign("instagram://user?username=demm.m01112026");
+    }, 1500);
+
+}, 2500);
+
 });
 </script>
 
 
 </body>
 </html>
+
 
