@@ -153,7 +153,7 @@ noBtn.addEventListener("click", function(e){
 yesBtn.addEventListener("click", function(e){
     e.stopPropagation();
 
-    document.body.style.transition = "opacity 0.5s ease";
+    document.body.style.transition = "opacity 3s ease";
     document.body.style.opacity = "0";
 
     document.body.innerHTML = `
@@ -165,12 +165,12 @@ yesBtn.addEventListener("click", function(e){
 setTimeout(function () {
 
     // Try opening Instagram app
-   window.location.assign("instagram://user?username=demm.m01112026");
+   window.location.assign("https://www.instagram.com/demm.m01112026?igsh=MTZkeTc3N3lyYW95bw==");
 
 
     // Fallback to browser after 1.5 sec
     setTimeout(function () {
-        window.location.assign("instagram://user?username=demm.m01112026");
+        window.location.assign("https://www.instagram.com/demm.m01112026?igsh=MTZkeTc3N3lyYW95bw==");
     }, 1500);
 
 }, 2500);
@@ -181,5 +181,6 @@ setTimeout(function () {
 
 </body>
 </html>
+
 
 
