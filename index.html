@@ -120,6 +120,9 @@
     const noBtn = document.getElementById("noBtn");
     const buttonArea = document.querySelector(".button-area");
 
+    let yesSize = 16;
+    let noSize = 16;
+
     // Start music
     document.body.addEventListener("click", function startMusic() {
         music.volume = 0.7;
@@ -136,6 +139,16 @@
 
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
+
+        // 🔻 Shrink No button
+        if (noSize > 8) {
+            noSize -= 2;
+            noBtn.style.fontSize = noSize + "px";
+        }
+
+        // 🔺 Grow Yes button
+        yesSize += 3;
+        yesBtn.style.fontSize = yesSize + "px";
     }
 
     noBtn.addEventListener("touchstart", moveButton);
@@ -157,17 +170,9 @@
             window.location.href = "https://www.instagram.com/demm.m01112026/";
         }, 2500);
     });
-
-    // Floating hearts
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
-    }, 600);
 </script>
+
 
 </body>
 </html>
+
